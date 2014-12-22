@@ -1,0 +1,3 @@
+maze
+====
+Maze game
