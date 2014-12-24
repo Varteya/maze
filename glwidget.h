@@ -5,15 +5,16 @@
 #include <QGLShader>
 #include <QTimer>
 #include <QOpenGLVertexArrayObject>
+#include <QGLFunctions>
 
-#include "field.h"
+#include "Field.h"
 #include "Player.h"
 
-class GLWidget : public QGLWidget
+class GLWidget : public QGLWidget, protected QGLFunctions
 {
     Q_OBJECT
 public:
-    explicit GLWidget(QWidget *parent = 0);
+    explicit GLWidget(Field field, Player player, QWidget *parent = 0);
     QSize minimumSizeHint() const;
     QSize sizeHint() const;
 
@@ -24,20 +25,31 @@ protected:
     void keyPressEvent(QKeyEvent * event) override;
     void initTextures();
 private:
+    struct VertexData{
+        QVector2D vertex;
+        QVector2D textureCoord;
+    };
+
     QMatrix4x4 projection;
     QMatrix4x4 view;
     QMatrix4x4 model;
 
     QTimer timer;
 
-    GLuint texture;
+    GLuint texture[2];
 
     QGLShaderProgram * currentShader = nullptr;
 
     void loadShaderProgram(QGLShaderProgram * program, QString name);
 
-    field mapField;
-    player p;
+    Field mapField;
+    Player p;
+
+    void paintMap();
+
+    void paintPlayer();
+
+    void initShaders();
 };
 
 #endif // GLWIDGET_H

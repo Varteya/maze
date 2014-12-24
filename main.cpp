@@ -1,12 +1,21 @@
 #include <QApplication>
 #include <QDesktopWidget>
-
+#include <fstream>
+#include "Player.h"
 #include "glwidget.h"
 
 int main(int argc, char *argv[])
 {
+    Field mapField;
+    std::ifstream map ("text_map.txt");
+    mapField.read_field_from_file(map);
+
+    int x, y;
+    map >> x >> y;
+    Player p(&mapField, x, y);
+
     QApplication a(argc, argv);
-    GLWidget window;    
+    GLWidget window(mapField, p);
 
     window.resize(window.sizeHint());
     int desktopArea = QApplication::desktop()->width() *

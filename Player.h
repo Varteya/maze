@@ -3,10 +3,10 @@
 
 #include <algorithm>
 #include <iostream>
-#include "field.h"
+#include "Field.h"
 
-class player {
-
+class Player {
+public:
     enum type_of_move
     {
         LEFT,
@@ -14,17 +14,19 @@ class player {
         UP,
         DOWN
     };
+    Player(Field * field, int x, int y);
 
-public:
-    player();
-    void initialize_coordinates (std::istream &);
-
+    int getXCoord(){
+        return _x;
+    }
+    int getYCoord(){
+        return _y;
+    }
+    void move(type_of_move typeOfMove);
 private:
-    void move();
-
-
-    std::pair<int, int> coordinate;
-
+    Field * _field;
+    int _x;
+    int _y;
 };
 
 #endif // PLAYER_H

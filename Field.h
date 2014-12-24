@@ -5,11 +5,11 @@
 #include <vector>
 
 
-class field
+class Field
 {
 public:
-    field();
-//    ~field();
+    Field();
+//    ~Field();
     void read_field_from_file(std::istream &);
 
     enum type_of_place
