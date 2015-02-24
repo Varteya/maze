@@ -4,11 +4,20 @@
 #include "Player.h"
 #include "glwidget.h"
 
+
+
+
 int main(int argc, char *argv[])
 {
     Field mapField;
     std::ifstream map ("text_map.txt");
-    mapField.readFieldFromFile(map);
+    try {
+        mapField.readFieldFromFile(map);
+    }
+    catch (std::exception& e){
+        std::cout << e.what() << '\n';
+        return 1;
+    }
 
     int x, y;
     map >> x >> y;

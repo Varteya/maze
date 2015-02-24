@@ -1,6 +1,13 @@
 #include <iostream>
+#include <exception>
+
 #include "Field.h"
 
+class myException : public std::exception {
+    virtual const char *what() const throw() {
+        return "Error: incorrect input data";
+    }
+} myex;
 
 Field::Field() {
 }
@@ -26,7 +33,7 @@ void Field::readFieldFromFile(std::istream &in) {
                     addValue(i, j, PORTAL);
                     break;
                 default:
-                    throw "Bad char";
+                    throw myex;
             }
         }
     }
@@ -42,4 +49,5 @@ Field::typeOfPlace Field::readValue(int x, int y) {
     int coordinate = y * size + x;
     return places[coordinate];
 }
+
 
