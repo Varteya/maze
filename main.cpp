@@ -11,13 +11,8 @@ int main(int argc, char *argv[])
 {
     Field mapField;
     std::ifstream map ("text_map.txt");
-    try {
-        mapField.readFieldFromFile(map);
-    }
-    catch (std::exception& e){
-        std::cout << e.what() << '\n';
-        return 1;
-    }
+    mapField.readFieldFromFile(map);
+
 
     int x, y;
     map >> x >> y;
