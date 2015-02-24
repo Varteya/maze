@@ -25,7 +25,7 @@ void GLWidget::initializeGL() {
     glDisable(GL_DEPTH_TEST);
     initTextures();
 
-    projection.perspective(30.0f, 1.0f, 0.1f, 100.0f);
+    projection.perspective(60.0f, 1.0f, 0.1f, 100.0f);
     view.lookAt(QVector3D(mapField.size/2, mapField.size/2, 15.0f), QVector3D(mapField.size/2, mapField.size/2, 0), QVector3D(0, 1, 0));
 
     currentShader = new QGLShaderProgram();
@@ -78,7 +78,14 @@ void GLWidget::keyPressEvent(QKeyEvent *event) {
     } else if (event->key() == Qt::Key_Right) {
         p.move(Player::RIGHT);
     }
-    updateGL();
+    if (p.isEscaped()){
+        QMessageBox msgBox;
+        msgBox.setText("Congratulations! You won! Application will be closed.");
+        msgBox.exec();
+        exit(0);
+    } else {
+        updateGL();
+    }
 }
 
 void GLWidget::paintGL() {
@@ -129,27 +136,27 @@ void GLWidget::paintPlayer() {
 void GLWidget::paintMap() {
     currentShader->setUniformValue("is_player", false);
     QGLBuffer buffer(QGLBuffer::VertexBuffer);
-    std::vector<float> vertices(8 * mapField.number_of_walls);
-    int walls_done = 0;
+    std::vector<float> vertices(8 * mapField.numberOfWalls);
+    int wallsDone = 0;
     for (int i = 0; i < mapField.size; ++i) {
         for (int j = 0; j < mapField.size; ++j) {
-            if (mapField.read_value(i, j) == Field::type_of_place::WALL) {
-                vertices[walls_done] = i;
-                walls_done++;
-                vertices[walls_done] = j;
-                walls_done++;
-                vertices[walls_done] = i + 1;
-                walls_done++;
-                vertices[walls_done] = j;
-                walls_done++;
-                vertices[walls_done] = i + 1;
-                walls_done++;
-                vertices[walls_done] = j + 1;
-                walls_done++;
-                vertices[walls_done] = i;
-                walls_done++;
-                vertices[walls_done] = j + 1;
-                walls_done++;
+            if (mapField.readValue(i, j) == Field::typeOfPlace::WALL) {
+                vertices[wallsDone] = i;
+                wallsDone++;
+                vertices[wallsDone] = j;
+                wallsDone++;
+                vertices[wallsDone] = i + 1;
+                wallsDone++;
+                vertices[wallsDone] = j;
+                wallsDone++;
+                vertices[wallsDone] = i + 1;
+                wallsDone++;
+                vertices[wallsDone] = j + 1;
+                wallsDone++;
+                vertices[wallsDone] = i;
+                wallsDone++;
+                vertices[wallsDone] = j + 1;
+                wallsDone++;
             }
         }
     }
@@ -161,7 +168,7 @@ void GLWidget::paintMap() {
 
     currentShader->setAttributeBuffer("vertex", GL_FLOAT, 0, 2);
     currentShader->enableAttributeArray("vertex");
-    glDrawArrays(GL_QUADS, 0, 8 * mapField.number_of_walls);
+    glDrawArrays(GL_QUADS, 0, 8 * mapField.numberOfWalls);
     buffer.release();
     currentShader->disableAttributeArray("vertex");
 }
@@ -170,17 +177,3 @@ void GLWidget::paintMap() {
 void GLWidget::resizeGL(int w, int h) {
     glViewport(0, 0, w, h);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

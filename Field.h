@@ -9,26 +9,27 @@ class Field
 {
 public:
     Field();
-//    ~Field();
-    void read_field_from_file(std::istream &);
 
-    enum type_of_place
+    void readFieldFromFile(std::istream &);
+    //Reading text map from file and initialize filed
+
+    enum typeOfPlace
     {
         EMPTY,
         WALL,
-        PORTAL
+        PORTAL  //Exit
     };
 
     int size;
 
- //   int places_height;
- //   int places_width;
-    std::vector< type_of_place > places;
-    int number_of_walls;
+    std::vector<typeOfPlace> places;
+    int numberOfWalls;
 
-    void add_value(int, int, type_of_place);
-    type_of_place read_value(int, int);
+    void addValue(int, int, typeOfPlace);
+    //inintialize element of the field with coordinates by typeOfPlace
 
+    typeOfPlace readValue(int, int);
+    //read typeOfPlace on the field on coordinates
 
 };
 

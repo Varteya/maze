@@ -16,7 +16,9 @@ class GLWidget : public QGLWidget, protected QGLFunctions
 public:
     explicit GLWidget(Field field, Player player, QWidget *parent = 0);
     QSize minimumSizeHint() const;
+    //establish minimum size of the field
     QSize sizeHint() const;
+    //establish size of the field
 
 protected:
     void initializeGL() override;

@@ -5,8 +5,8 @@
 Field::Field() {
 }
 
-void Field::read_field_from_file(std::istream &in) {
-    number_of_walls = 0;
+void Field::readFieldFromFile(std::istream &in) {
+    numberOfWalls = 0;
     in >> size;
     places.resize(size * size);
 
@@ -16,14 +16,14 @@ void Field::read_field_from_file(std::istream &in) {
             in >> now;
             switch (now) {
                 case 'E':
-                    add_value(i, j, EMPTY);
+                    addValue(i, j, EMPTY);
                     break;
                 case 'W':
-                    add_value(i, j, WALL);
-                    number_of_walls = number_of_walls + 1;
+                    addValue(i, j, WALL);
+                    numberOfWalls = numberOfWalls + 1;
                     break;
                 case 'F':
-                    add_value(i, j, PORTAL);
+                    addValue(i, j, PORTAL);
                     break;
                 default:
                     throw "Bad char";
@@ -33,12 +33,13 @@ void Field::read_field_from_file(std::istream &in) {
 }
 
 
-void Field::add_value(int x, int y, Field::type_of_place type) {
+void Field::addValue(int x, int y, Field::typeOfPlace type) {
     int coordinate = (size - 1 - y) * size + x;
     Field::places[coordinate] = type;
 }
 
-Field::type_of_place Field::read_value(int x, int y) {
+Field::typeOfPlace Field::readValue(int x, int y) {
     int coordinate = y * size + x;
     return places[coordinate];
 }
+

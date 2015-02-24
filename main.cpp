@@ -8,7 +8,7 @@ int main(int argc, char *argv[])
 {
     Field mapField;
     std::ifstream map ("text_map.txt");
-    mapField.read_field_from_file(map);
+    mapField.readFieldFromFile(map);
 
     int x, y;
     map >> x >> y;

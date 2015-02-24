@@ -7,26 +7,34 @@
 
 class Player {
 public:
-    enum type_of_move
+    enum typeOfMove
     {
         LEFT,
         RIGHT,
         UP,
         DOWN
     };
+
     Player(Field * field, int x, int y);
 
     int getXCoord(){
         return _x;
     }
+
     int getYCoord(){
         return _y;
     }
-    void move(type_of_move typeOfMove);
+
+    void move(typeOfMove typeOfMove);
+    //change players coordinates
+
+    bool isEscaped();
+    //check if player won
 private:
     Field * _field;
     int _x;
     int _y;
+    bool escaped;
 };
 
 #endif // PLAYER_H
